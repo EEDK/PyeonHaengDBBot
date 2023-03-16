@@ -6,10 +6,19 @@ import os
 load_dotenv()
 Token = os.environ.get('DiscordBotToken')
 intents = discord.Intents.default()
+intents.message_content = True
 
-game = discord.Game('감시 중')
 
-bot = commands.Bot(command_prefix='!',
-                   status=discord.Status.online, activity=game, intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
+
+
+@bot.event
+async def on_ready():
+    print(f'Login bot: {bot.user}')
+
+
+@bot.command()
+async def hello(message):
+    await message.channel.send('Hi!')
 
 bot.run(Token)
