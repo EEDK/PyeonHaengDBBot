@@ -32,4 +32,4 @@ try:
 
 except Exception as e:
     print(e)
-    send_discord_message("이걸로 보냄")
+    send_discord_message("@everyone 서버 살려주세요")
