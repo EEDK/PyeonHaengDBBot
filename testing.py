@@ -4,11 +4,10 @@ import json
 import os
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 # check 서버
-baseURL = os.environ.get('baseURL')
+testURL = os.environ.get('testURL')
 webhook_url = os.environ.get('webhook_url')
 
 headers = {
@@ -27,10 +26,10 @@ def send_discord_message(msg):
     req.post(webhook_url, data=json.dumps(payload), headers=headers)
 
 
-# 서비스 체크
 try:
-    r = req.get(
-        baseURL + '/api/products/search?limit=20&event=All&order-by=none&offset=0&name=하겐&cvs=all')
-    print(baseURL, 'return_code :', r.status_code)
+    r = req.get(testURL, verify=False)
+    print('ok')
+
 except Exception as e:
-    send_discord_message("@everyone 서버 살리세요")
+    print(e)
+    send_discord_message("이걸로 보냄")
